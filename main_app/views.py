@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
 class Dog:
     def __init__(self, name, breed, description, age):
@@ -16,7 +15,7 @@ dogs = [
 
 # Create your views here.
 def home(request):
-  return HttpResponse('<h1>Hi! Welcome to Dog Collector /ᐠ｡‸｡ᐟ\</h1>')
+  return render(request, 'home.html')
 
 def about(request):
     return render(request, 'about.html')
