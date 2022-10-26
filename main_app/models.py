@@ -23,7 +23,7 @@ class Dog(models.Model):
 
 class Walking(models.Model):
     date = models.DateField()
-    meal = models.CharField(
+    time = models.CharField(
         max_length=1,
         choices=TIMES,
         default=TIMES[0][0]
