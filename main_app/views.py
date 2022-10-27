@@ -18,15 +18,19 @@ def dogs_index(request):
 
 def dogs_detail(request, dog_id):
     dog = Dog.objects.get(id=dog_id)
+    id_list = dog.treats.all().values_list('id')
+    treats_dog_doesnt_have = Treat.objects.exclude(id__in=id_list)
     walking_form = WalkingForm()
     return render(request, 'dogs/detail.html', {
-        'dog': dog, 'walking_form': walking_form
+        'dog': dog, 
+        'walking_form': walking_form,
+        'treats': treats_dog_doesnt_have
     })
 
 
 class DogCreate(CreateView):
     model = Dog
-    fields = '__all__'
+    fields = ['name', 'breed', 'description', 'age']
 
 class DogUpdate(UpdateView):
     model = Dog
@@ -44,6 +48,10 @@ def add_walking(request, dog_id):
         new_walking.save()
     return redirect('detail', dog_id=dog_id)
 
+def assoc_treat(request, dog_id, treat_id):
+  Dog.objects.get(id=dog_id).treats.add(treat_id)
+  return redirect('detail', dog_id=dog_id)
+  
 class TreatList(ListView):
   model = Treat
 
