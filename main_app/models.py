@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from datetime import date
 
 # Create your models here.
 
@@ -20,9 +21,12 @@ class Dog(models.Model):
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'dog_id': self.id})
+    
+    def waled_for_today(self):
+        return self.walking_set.filter(date=date.today()).count() >= len(TIMES)
 
 class Walking(models.Model):
-    date = models.DateField()
+    date = models.DateField('walking date')
     time = models.CharField(
         max_length=1,
         choices=TIMES,
@@ -34,3 +38,5 @@ class Walking(models.Model):
     def __str__(self):
         return f"{self.get_time_display()} on {self.date}"
     
+    class Meta:
+        ordering = ['-date']
