@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Dog 
+from django.views.generic import ListView, DetailView
+from .models import Dog, Treat
 from .forms import WalkingForm
 
 
@@ -42,3 +43,21 @@ def add_walking(request, dog_id):
         new_walking.dog_id = dog_id
         new_walking.save()
     return redirect('detail', dog_id=dog_id)
+
+class TreatList(ListView):
+  model = Treat
+
+class TreatDetail(DetailView):
+  model = Treat
+
+class TreatCreate(CreateView):
+  model = Treat
+  fields = '__all__'
+
+class TreatUpdate(UpdateView):
+  model = Treat
+  fields = ['name', 'flavor']
+
+class TreatDelete(DeleteView):
+  model = Treat
+  success_url = '/treats/'

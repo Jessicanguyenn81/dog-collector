@@ -2,13 +2,23 @@ from django.db import models
 from django.urls import reverse
 from datetime import date
 
-# Create your models here.
-
 TIMES = (
     ('M', 'Morning'),
     ('A', 'Afternoon'),
     ('N', 'Night')
 )
+
+# Create your models here.
+
+class Treat(models.Model):
+    name = models.CharField(max_length=100)
+    flavor = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('treats_detail', kwargs={'pk': self.id})
 
 class Dog(models.Model):
     name = models.CharField(max_length=100)
