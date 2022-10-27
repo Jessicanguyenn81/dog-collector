@@ -61,6 +61,12 @@
               <span style="flavor: {{ treat.flavor }}">{{ treat.flavor }}</span> {{ treat.name }}
             </span>
           </div>
+          <div class="card-action">
+            <form action="{% url 'unassoc_treat' dog.id treat.id %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn">Remove</button>
+            </form>
+          </div>
         </div>
       {% endfor %}
     {% else %}

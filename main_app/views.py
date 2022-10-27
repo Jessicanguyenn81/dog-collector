@@ -51,6 +51,10 @@ def add_walking(request, dog_id):
 def assoc_treat(request, dog_id, treat_id):
   Dog.objects.get(id=dog_id).treats.add(treat_id)
   return redirect('detail', dog_id=dog_id)
+
+def unassoc_treat(request, dog_id, treat_id):
+  Dog.objects.get(id=dog_id).treats.remove(treat_id)
+  return redirect('detail', dog_id=dog_id)
   
 class TreatList(ListView):
   model = Treat

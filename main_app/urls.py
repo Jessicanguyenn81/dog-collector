@@ -16,4 +16,5 @@ urlpatterns = [
     path('treats/<int:pk>/update/', views.TreatUpdate.as_view(), name='treats_update'),
     path('treats/<int:pk>/delete/', views.TreatDelete.as_view(), name='treats_delete'),
     path('dogs/<int:dog_id>/assoc_treat/<int:treat_id>/', views.assoc_treat, name='assoc_treat'),
+    path('dogs/<int:dog_id>/unassoc_treat/<int:treat_id>/', views.unassoc_treat, name='unassoc_treat'),
 ]
